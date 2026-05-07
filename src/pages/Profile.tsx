@@ -1,5 +1,5 @@
 import { useStore } from '../store/useStore'
-import { Card, StatCard, LevelBadge, ProgressBar } from '../components/ui'
+import { Card, StatCard, LevelBadge } from '../components/ui'
 import { RadarChart, Radar, PolarGrid, PolarAngleAxis, ResponsiveContainer } from 'recharts'
 import { CATEGORY_LABELS, ALL_BADGES } from '../types'
 
@@ -32,24 +32,32 @@ export default function Profile() {
             <span>{xpProgress}/100 XP</span>
           </div>
           <div className="h-2 bg-indigo-800 rounded-full overflow-hidden">
-            <div className="h-full bg-yellow-400 rounded-full transition-all duration-700" style={{ width: `${xpProgress}%` }} />
+            <div className="h-full bg-yellow-400 rounded-full" style={{ width: `${xpProgress}%` }} />
           </div>
         </div>
-        <div className="grid grid-cols-3 gap-4 mt-4 pt-4 border-t border-indigo-500">
-          {([['🔥', `${user.streak}j`, 'Streak'], ['📝', stats.totalExams, 'Examens'], ['💯', `${stats.averageScore}%`, 'Moy.']] as const).map(([icon, val, label]) => (
-            <div key={label} className="text-center">
-              <div>{icon}</div>
-              <div className="font-black text-lg">{val}</div>
-              <div className="text-xs text-indigo-300">{label}</div>
-            </div>
-          ))}
+        <div className="grid grid-cols-3 gap-4 mt-4 pt-4 border-t border-indigo-500 text-center">
+          <div>
+            <div>🔥</div>
+            <div className="font-black text-lg">{user.streak}j</div>
+            <div className="text-xs text-indigo-300">Streak</div>
+          </div>
+          <div>
+            <div>📝</div>
+            <div className="font-black text-lg">{stats.totalExams}</div>
+            <div className="text-xs text-indigo-300">Examens</div>
+          </div>
+          <div>
+            <div>💯</div>
+            <div className="font-black text-lg">{stats.averageScore}%</div>
+            <div className="text-xs text-indigo-300">Moy.</div>
+          </div>
         </div>
       </Card>
 
       <div className="grid grid-cols-2 gap-4">
         <StatCard label="Score moyen" value={`${stats.averageScore}%`} icon="🎯" color={stats.averageScore >= 70 ? 'success' : 'warning'} />
         <StatCard label="Meilleur score" value={`${stats.bestScore}%`} icon="🏆" color="warning" />
-        <StatCard label="Questions répondues" value={stats.totalQuestions} icon="💬" color="primary" />
+        <StatCard label="Questions" value={stats.totalQuestions} icon="💬" color="primary" />
         <StatCard label="Chance TECFÉE" value={`${stats.estimatedPassRate}%`} icon="🎓" color={stats.estimatedPassRate >= 70 ? 'success' : 'warning'} />
       </div>
 
@@ -59,3 +67,31 @@ export default function Profile() {
           <ResponsiveContainer width="100%" height={220}>
             <RadarChart data={radarData}>
               <PolarGrid stroke="#E5E7EB" />
+              <PolarAngleAxis dataKey="category" tick={{ fontSize: 11, fill: '#6B7280' }} />
+              <Radar name="Score" dataKey="score" stroke="#6366F1" fill="#6366F1" fillOpacity={0.2} strokeWidth={2} />
+            </RadarChart>
+          </ResponsiveContainer>
+        </Card>
+      )}
+
+      <Card>
+        <h2 className="font-bold text-gray-900 mb-4">🏅 Badges</h2>
+        <div className="grid grid-cols-2 gap-3">
+          {ALL_BADGES.map(badge => {
+            const earned = user.badges.find(b => b.id === badge.id)
+            return (
+              <div key={badge.id} className={`flex items-center gap-3 p-3 rounded-2xl border-2 ${earned ? 'border-yellow-200 bg-yellow-50' : 'border-gray-100 bg-gray-50 opacity-50 grayscale'}`}>
+                <span className="text-2xl">{badge.icon}</span>
+                <div>
+                  <p className="text-xs font-bold text-gray-800">{badge.name}</p>
+                  <p className="text-xs text-gray-500">{badge.description}</p>
+                  {earned && <p className="text-xs text-yellow-600 font-medium mt-0.5">✓ Obtenu</p>}
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      </Card>
+    </div>
+  )
+}
