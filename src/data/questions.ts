@@ -844,10 +844,6 @@ export const QUESTIONS: Question[] = [
     rule: 'Les compléments circonstanciels (CC) précisent les circonstances : temps, lieu, manière, cause, but, moyen. Ils répondent à : quand ? où ? comment ? pourquoi ? pour quoi ? avec quoi ?',
     points: 1,
   },
-]
-
-// NEW QUESTIONS PART 1 — GRAMMAIRE g011-g022
-
   {
     id: 'g011',
     category: 'grammaire',
@@ -1022,8 +1018,6 @@ export const QUESTIONS: Question[] = [
     rule: 'Verbes qui imposent le subjonctif : douter que, craindre que, souhaiter que, vouloir que, regretter que, s\'étonner que, il faut que, il est possible que.',
     points: 3,
   },
-// NEW QUESTIONS PART 2 — ORTHOGRAPHE o009-o020
-
   {
     id: 'o009',
     category: 'orthographe',
@@ -1183,8 +1177,6 @@ export const QUESTIONS: Question[] = [
     rule: 'QUOIQUE (1 mot) = bien que (concession) + subjonctif ou participe. QUOI QUE (2 mots) = quelle que soit la chose que. Test : remplacer par « bien que » → quoique.',
     points: 2,
   },
-// PART 3 — SYNTAXE s007-s014, PONCTUATION p007-p012
-
   {
     id: 's007',
     category: 'syntaxe',
@@ -1423,8 +1415,6 @@ export const QUESTIONS: Question[] = [
     rule: 'Point d\'exclamation : après une phrase exclamative ou une interjection. En français soutenu, on n\'en met qu\'un seul (pas !! ou !!!). Il ne se cumule pas avec le point final.',
     points: 1,
   },
-// PART 4 — VOCABULAIRE v008-v018, ACCORDS a009-a018
-
   {
     id: 'v008',
     category: 'vocabulaire',
@@ -1717,8 +1707,6 @@ export const QUESTIONS: Question[] = [
     rule: 'Grand- dans les noms féminins composés est invariable : une grand-mère / des grand-mères, une grand-tante / des grand-tantes. L\'adjectif s\'accorde en nombre (+ s) mais pas en genre.',
     points: 2,
   },
-// PART 5 — COMPRÉHENSION c006-c013, RÉDACTION r005-r012
-
   {
     id: 'c006',
     category: 'comprehension',
