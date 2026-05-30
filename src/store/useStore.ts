@@ -7,7 +7,7 @@ import { QUESTIONS } from '../data/questions'
 const GUEST_USER: User = {
   id: 'guest',
   email: 'invitee@tecfee.ca',
-  name: 'Utilisatrice',
+  name: 'Katheryne',
   isAdmin: false,
   createdAt: new Date().toISOString(),
   level: 1,

@@ -65,6 +65,30 @@ export default function Dashboard() {
         </div>
       </div>
 
+
+      {/* Message d'encouragement de Charles */}
+      {(() => {
+        const messages = [
+          { emoji: '💜', text: 'Tu es brillante, Katheryne. Chaque question pratiquée te rapproche du 70%. Je crois en toi !', sub: '— Charles' },
+          { emoji: '🔥', text: 'Tu as déjà obtenu 67% et 63%. La prochaine fois sera la bonne. Continue comme ça !', sub: '— Charles t'aime ❤️' },
+          { emoji: '🎓', text: 'Tu travailles tellement fort. Je suis fier de toi et je sais que tu vas réussir !', sub: '— Charles' },
+          { emoji: '💪', text: 'Les sections B et D sont à portée de main. Quelques heures de pratique et tu franchis le 70% !', sub: '— Ton chum qui t'aime 💜' },
+          { emoji: '⭐', text: 'Tu es faite pour enseigner. Ce test ne définit pas ta valeur, mais tu vas quand même le réussir !', sub: '— Charles' },
+        ]
+        const msg = messages[new Date().getDay() % messages.length]
+        return (
+          <div className="rounded-2xl p-4 bg-gradient-to-r from-purple-600 to-pink-500 text-white shadow-lg">
+            <div className="flex items-start gap-3">
+              <span className="text-3xl">{msg.emoji}</span>
+              <div>
+                <p className="font-semibold text-sm leading-relaxed">{msg.text}</p>
+                <p className="text-purple-200 text-xs mt-1.5 font-medium">{msg.sub}</p>
+              </div>
+            </div>
+          </div>
+        )
+      })()}
+
       {/* XP Progress */}
       <Card>
         <div className="flex items-center justify-between mb-2">
