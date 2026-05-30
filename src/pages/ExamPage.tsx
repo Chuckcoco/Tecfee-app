@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useStore } from '../store/useStore'
 import { Button, Card, ProgressBar, Modal } from '../components/ui'
@@ -104,6 +104,21 @@ function ExamRunner() {
 
   const question = session?.questions[idx]?.question
 
+  // Mélanger les options aléatoirement (stable par question grâce à l'index)
+  const shuffledOptions = useMemo(() => {
+    if (!question?.options) return []
+    const arr = [...question.options]
+    // Seed basé sur l'id de la question pour que le mélange soit stable
+    let seed = question.id.split('').reduce((a, c) => a + c.charCodeAt(0), 0) + idx * 31
+    for (let i = arr.length - 1; i > 0; i--) {
+      seed = (seed * 1664525 + 1013904223) & 0xffffffff
+      const j = Math.abs(seed) % (i + 1);
+      [arr[i], arr[j]] = [arr[j], arr[i]]
+    }
+    return arr
+  }, [question?.id, idx])
+
+
   useEffect(() => {
     const t = setInterval(() => setElapsed(e => e + 1), 1000)
     return () => clearInterval(t)
@@ -186,7 +201,7 @@ function ExamRunner() {
 
       {/* Options */}
       <div className="flex flex-col gap-3">
-        {question.options?.map((opt, i) => {
+        {shuffledOptions.map((opt, i) => {
           const letter = ['A', 'B', 'C', 'D'][i]
           const isSelected = selected === opt
           const isCorrectOpt = opt === question.correctAnswer
