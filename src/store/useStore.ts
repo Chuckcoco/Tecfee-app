@@ -169,6 +169,16 @@ export const useStore = create<AppState>()(
         }
       },
     }),
-    { name: 'tecfee-storage', partialize: (s) => ({ user: s.user, sessions: s.sessions, questions: s.questions }) }
+    {
+      name: 'tecfee-storage',
+      partialize: (s) => ({ user: s.user, sessions: s.sessions, questions: s.questions }),
+      onRehydrateStorage: () => (state) => {
+        // Forcer le nom Katheryne peu importe ce qui est en localStorage
+        if (state?.user) {
+          state.user.name = 'Katheryne'
+          state.user.email = 'katheryne@tecfee.ca'
+        }
+      },
+    }
   )
 )
